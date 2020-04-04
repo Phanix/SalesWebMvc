@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
+using Microsoft.EntityFrameworkCore;
 namespace SalesWebMvc.Services
 {
     public class SellerService
@@ -27,7 +28,7 @@ namespace SalesWebMvc.Services
         }
         public Seller FindViewById(int id)
         {
-            return _context.Seller.FirstOrDefault(seller => seller.Id == id);
+            return _context.Seller.Include(seller => seller.Department).FirstOrDefault(seller => seller.Id == id);
         }
 
         public void Remove(int id)
